@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='myApp'>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Very Simple To Do </title>
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+    <!-- endbower -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/app/styles/styles.css">
+    <!-- endinject -->
+</head>
+
+<body background="app/styles/images/paper.jpg" ng-controller='MainController as vm'>
+    <div class="container">
+        <h1>To Do List</h1>
+       
+        <div class "addcontent">
+            <!--   ng-model is a directive binds input field data to a property on the scope.  ng-click 
+            fires the itemsToDatabase function button onclick which adds the data to back end database.   
+            This option select goes with the new todo in the ng-click.-->
+            <input class="topInput" id="mainInput" ng-model='vm.name' \>
+             <select class="form-control"  ng-model="vm.priority" name="priority">
+                        <option value="1">High</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Low</option>
+                    </select>
+            <button type="button" class="btn btn-primary" ng-click='vm.itemsToDatabase()'>Add Item</button>
+            <div>
+                <br> </div>
+        </div>
+     
+        <div class="alert alert-info">
+            <p>Sort Type Selected: {{ vm.sortType }}</p>
+         
+        </div>
+        <div>
+            <!--      the ng-click buttons call the vm.sortType function, which is on js  -->
+            <button href='#' ng-click="vm.sortType ='addTask'">
+                Sort by Name
+            </button>
+            <button href='#' ng-click="vm.sortType ='selectedPriority'">
+                Sort by Priority
+            </button>
+        </div>
+        <div>
+            <br> </div>
+     
+        <div>
+            <table border="1" padding="54" id="table" class="mainTable">
+         
+                <!-- the ng-style directive changes the color of the td cell with the switch function
+                getTrColor from the priority selected property.  ng-repeat directive creates the loop.  list is name I gave it, addList is from the function.  orderBy is a javascript name.  The pipe acts as the filter. -->
+                <tr ng-repeat='list in vm.addList | orderBy: vm.sortType'>
+                    <td class="typeItem" ng-style="{'background-color' : vm.getTrColor(list.selectedPriority) } " >
+            
+                        <span ng-click="editing=true" ng-hide="editing">
+                        {{list.addTask}}
+                        </span>
+                        
+                        <input type="text" ng-show="editing" ng-model="list.addTask" />
+                    </td>
+                   
+                    <span>
+
+                         <td> <label class="backColor" for="priority">Priority </label>
+                    <!-- ng-model directive takes data from priority selected pushes to scope so it can tie in with the switch function.  numeric values are referenced in function -->
+                    <select class="form-control"  ng-model="list.selectedPriority" name="priority">
+                        <option value="1">High</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Low</option>
+                        </select> 
+                    </span></td>
+
+                    <td><button ng-click="editing=!editing"> Edit </button> 
+                   <!--  funtion UpdateData runs, passes two parameters.  toDoEntryId is a parameter in object data -->
+                    <button ng-click="vm.UpdateData(list.toDoEntryId,list)"> Update </button></td>
+
+                      <td> <a href="" ng-click="vm.deleteTask(list.toDoEntryId)">Delete Item</a> </td>
+                    <div></div>
+
+                </tr>
+            </table>
+        </div>
+
+<div><br><br><br><br></div>
+<div></div>
+
+
+    </div>
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <!-- endbower -->
+    <!-- inject:js -->
+    <script src="/app/app.js"></script>
+    <script src="/app/todo.controller.js"></script>
+    <script src="/app/todo.factory.js"></script>
+    <!-- endinject -->
+</body>
+
+</html>

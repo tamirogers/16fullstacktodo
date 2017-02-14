@@ -1,0 +1,55 @@
+.form-control {
+    height: 30px;
+    width: 100px;
+}
+
+label {
+    background-color: white;
+    width: 100px;
+    color: green;
+}
+
+.mainTable {
+
+    background-color: white;
+    width: 800px;
+
+}
+
+td {
+     padding: 10px;
+}
+
+.topInput {
+    padding-bottom: 10px;
+    margin-bottom: 7px;
+}
+
+.form-control {
+    margin-bottom: 7px;
+}
+
+.alert-info {
+    background-color: white !important;
+    width: 210px;
+}
+
+.backColor {}
+
+button {}
+
+p {
+    color: red;
+}
+
+.container {
+    width: 666px;
+    /*	padding-left: 60px;*/
+/*    padding-top: 1px;*/
+}
+
+body {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
